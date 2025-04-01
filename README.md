@@ -15,6 +15,6 @@ Usage guide: [Enhancer Processor Guide](https://github.com/regulatory-genomics/G
 ### eQTL Processor
 The `EQTLProcessor` is designed for processing expression quantitative trait loci (eQTL) data. It supports GTEx v8 and other eQTL datasets.
 
-Usage guide: [eQTL Processor Guide](docs/eqtl_processor_guide.md)
+Usage guide: [eQTL Processor Guide]([docs/eqtl_processor_guide.md](https://github.com/regulatory-genomics/Genomic_Benchmark/blob/main/docs/data/eqtl_processor_guide.md#eqtl-processor-user-guide))
 
 
