@@ -1,7 +1,4 @@
-∫# Genomic_Benchmark
 Benchmark for DNA sequence-based model
-
-A comprehensive benchmark for genomic data processing and analysis.
 
 ## Installation
 
