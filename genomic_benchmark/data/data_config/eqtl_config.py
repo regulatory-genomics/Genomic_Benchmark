@@ -22,6 +22,8 @@ EQTL_CONFIG = {
             "genome_version": "hg38",
             "data_url": "https://osf.io/download/67e262485178b65a1b44a8cc/",
             "file_format": "parquet",
+            "info_url": "https://osf.io/download/67eb5d6ed7674dbd7e8b7f4f/",
+            "info_file_format": "md",
             "column_mapping": {
                 "gene_name": "gene_name",
                 "biotype": "biotype",

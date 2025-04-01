@@ -60,6 +60,8 @@ ENHANCER_CONFIG = {
         "genome_version": "hg38",
         "data_url": "https://osf.io/download/67e25ef65da5486b3e496c77/",
         "file_format": "tsv",
+        "info_url": "https://osf.io/download/67eb5c17763c88f69204eafd/",
+        "info_file_format": "md",
         "column_mapping": {
             "chr": "chrom",
             "start": "chromStart",

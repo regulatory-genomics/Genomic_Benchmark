@@ -27,9 +27,30 @@ class EQTLProcessor(BaseProcessor):
     def download_and_process(self, output_dir: Optional[Union[str, Path]] = None, force: bool = False) -> pd.DataFrame:
         """
         Download and process eQTL data
+        
+        Args:
+            output_dir: Directory to save processed data
+            force: Whether to force re-download
+            
+        Returns:
+            Processed DataFrame
         """
-        raw_path = super().download(force)
-        self.process(raw_path, output_dir)
+        # Download files
+        downloaded_files = super().download(force)
+        self.data_path = downloaded_files["data"]
+        
+        # Process data
+        self.process(self.data_path, output_dir)
+        
+        # If info file exists, copy it to output directory
+        if "info" in downloaded_files and output_dir is not None:
+            info_file = downloaded_files["info"]
+            output_dir = Path(f"{output_dir}/{self.task_name}/{self.dataset_name}")
+            output_dir.mkdir(parents=True, exist_ok=True)
+            import shutil
+            shutil.copy2(info_file, f"{output_dir}/{info_file.name}")
+            print(f"Info file saved to: {output_dir / info_file.name}")
+
         return self.data
     
     def process(self, data_path: Optional[Union[str, Path]] = None, output_dir: Optional[Union[str, Path]] = None) -> pd.DataFrame:

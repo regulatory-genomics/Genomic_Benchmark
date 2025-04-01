@@ -55,27 +55,38 @@ class BaseProcessor:
         self.data = None
         self.data_path = None
         
-    def download(self, force: bool = False) -> Path:
+    def download(self, force: bool = False) -> Dict[str, Path]:
         """
-        Download dataset
+        Download dataset files
         
         Args:
             force: Whether to force re-download
             
         Returns:
-            Path to the downloaded file
+            Dictionary containing paths to the downloaded files
         """
-        # Get file format from config if available
-        file_format = self.dataset_config.get("file_format")
+        downloaded_files = {}
         
-        self.data_path = self.downloader.download(
+        # Download main data file
+        file_format = self.dataset_config.get("file_format")
+        downloaded_files["data"] = self.downloader.download(
             self.dataset_config["data_url"],
             force=force,
             file_name=self.dataset_name,
             file_format=file_format
         )
-
-        return self.data_path
+        
+        # Download info file if available
+        if "info_url" in self.dataset_config:
+            info_format = self.dataset_config.get("info_file_format", "txt")
+            downloaded_files["info"] = self.downloader.download(
+                self.dataset_config["info_url"],
+                force=force,
+                file_name=f"{self.dataset_name}_info",
+                file_format=info_format
+            )
+            
+        return downloaded_files
     
     def load_file(self, file_path: Union[str, Path]) -> pd.DataFrame:
         """
