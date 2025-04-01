@@ -1,7 +1,13 @@
-# Genomic_Benchmark
+∫# Genomic_Benchmark
 Benchmark for DNA sequence-based model
 
 A comprehensive benchmark for genomic data processing and analysis.
+
+## Installation
+
+```bash
+pip install git+https://github.com/regulatory-genomics/Genomic_Benchmark.git
+```
 
 ## Data Processors
 

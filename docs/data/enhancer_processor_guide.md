@@ -4,12 +4,6 @@
 
 `EnhancerProcessor` is a tool class for processing enhancer data, supporting multiple datasets including Gasperini, Fulco, Schraivogel, and Merged datasets. This guide provides detailed instructions on how to use this tool class.
 
-## Installation
-
-```bash
-pip install git+https://github.com/regulatory-genomics/Genomic_Benchmark.git
-```
-
 ## Basic Usage
 
 ### 1. Import Package
