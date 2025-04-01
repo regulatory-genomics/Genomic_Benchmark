@@ -24,6 +24,11 @@ dataset_name = "Gasperini"
 processor = gb.EnhancerProcessor(dataset_name)
 ```
 
+If you need to download the raw data to a specific cache path, specify it during initialization:
+```python
+processor = gb.EnhancerProcessor("Gasperini", cache_root="/path/to/cache")
+```
+
 ### 3. Download and Process Data
 The raw data will be downloaded to your system's default cache path. The preprocessed data (with unnecessary columns removed) will be stored in your specified path.
 
@@ -35,11 +40,6 @@ output_dir = Path("/path/to/your/output/directory")
 processor.download_and_process(output_dir=output_dir)
 ```
 The preprocessed data columns include: ['chr', 'start', 'end', 'gene_name', 'gene_tss', 'distance', 'ABC Score', 'label', 'score']. Detailed descriptions can be found in info.md
-
-If you need to download the raw data to a specific cache path, specify it during initialization:
-```python
-processor = gb.EnhancerProcessor("Gasperini", cache_root="/path/to/cache")
-```
 
 ### 4. Add Strand Information
 
