@@ -9,18 +9,18 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
-from src.data.eqtl_processor import EQTLProcessor
+import genomic_benchmark as gb
 
 def main():
     # Set cache root and output path
     dataset_name = "Adipose_Subcutaneous"  # GTEx tissue
-    cache_root = "/storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache"
+    output_dir = "/storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache"
        
-    processor = EQTLProcessor(dataset_name, cache_root)
+    processor = gb.EQTLProcessor(dataset_name)
 
     # 1. Download data
     print("1. Data download and processing...")
-    processor.download_and_process(output_path=None)
+    processor.download_and_process(output_dir=output_dir)
     
     # 2. Add gene info
     print("\n2. Adding gene info...")
@@ -39,8 +39,12 @@ def main():
     print("\n5. Filtering SNP...")
     processor.filter_only_snp()
 
-    # 6. Check SNP matching
-    print("\n6. Checking SNP matching...")
+    # 6. save processed data
+    print("\n6. Saving processed data...")
+    processor.save_processed_data(output_dir, file_name="Adipose_Subcutaneous_processed")
+
+    # 7. Check SNP matching
+    print("\n7. Checking SNP matching...")
     fasta_file = "/storage/zhangkaiLab/liuyue87/Projects/Benchmark_Genomics/data/cache/reference_genome/hg38/GRCh38.p14.genome.fa"
     snp_matching = processor.check_snp_matching(fasta_file)
     print(f"SNP matching: {snp_matching}")

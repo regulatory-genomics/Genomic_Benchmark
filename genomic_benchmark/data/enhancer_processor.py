@@ -25,12 +25,12 @@ class EnhancerProcessor(BaseProcessor):
         """
         super().__init__("enhancer", dataset_name, cache_root)
 
-    def download_and_process(self, output_path: Optional[Union[str, Path]] = None, force: bool = False) -> pd.DataFrame:
+    def download_and_process(self, output_dir: Optional[Union[str, Path]] = None, force: bool = False) -> pd.DataFrame:
         """
         Download and process enhancer data
         """
         raw_path = super().download(force)
-        super().process(raw_path, output_path)
+        super().process(raw_path, output_dir)
 
         return self.data
     

@@ -24,21 +24,21 @@ class EQTLProcessor(BaseProcessor):
         """
         super().__init__("eqtl", dataset_name, cache_root)
 
-    def download_and_process(self, output_path: Optional[Union[str, Path]] = None, force: bool = False) -> pd.DataFrame:
+    def download_and_process(self, output_dir: Optional[Union[str, Path]] = None, force: bool = False) -> pd.DataFrame:
         """
         Download and process eQTL data
         """
         raw_path = super().download(force)
-        self.process(raw_path, output_path)
+        self.process(raw_path, output_dir)
         return self.data
     
-    def process(self, data_path: Optional[Union[str, Path]] = None, output_path: Optional[Union[str, Path]] = None) -> pd.DataFrame:
+    def process(self, data_path: Optional[Union[str, Path]] = None, output_dir: Optional[Union[str, Path]] = None) -> pd.DataFrame:
         """
         Process data with standard pipeline
         
         Args:
             data_path: Path to input data file, if None, use self.data_path
-            output_path: Path to save processed data
+            output_dir: Directory to save processed data
             
         Returns:
             Processed DataFrame
@@ -58,8 +58,9 @@ class EQTLProcessor(BaseProcessor):
         self.data = self.filter_output_columns(self.data)
         
         # Save processed data if output path is provided
-        if output_path is not None:
-            self.save_processed_data(output_path)
+        if output_dir is None:
+            output_dir = self.cache_dir
+        self.save_processed_data(output_dir)
             
         print(f"Processed data shape: {self.data.shape}")
         print(f"Processed data columns: {self.data.columns.tolist()}")

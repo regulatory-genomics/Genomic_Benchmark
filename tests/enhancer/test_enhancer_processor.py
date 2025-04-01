@@ -9,18 +9,18 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
-from src.data.enhancer_processor import EnhancerProcessor
+import genomic_benchmark as gb
 
 def main():
     # Set cache root and output path
     dataset_name = "Gasperini" # "Gasperini" # "Fulco" # "Schraivogel" # "Merged"
-    cache_root = "/storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache"
+    output_dir = "/storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache"
        
-    processor = EnhancerProcessor(dataset_name, cache_root)
+    processor = gb.EnhancerProcessor(dataset_name)
 
     # 1. Download data
     print("1. Data download and processing...")
-    processor.download_and_process(output_path=None)
+    processor.download_and_process(output_dir=output_dir)
     
     # 2. Add strand info
     print("\n2. Adding strand info...")
@@ -31,8 +31,12 @@ def main():
     print("\n3. Filtering distance...")
     processor.filter_distance(distance_threshold=100000000)
 
-    # 4. calculate metrics
-    print("\n4. Calculating metrics...")
+    # 4. save processed data
+    print("\n4. Saving processed data...")
+    processor.save_processed_data(output_dir, file_name="Gasperini_processed")
+
+    # 5. calculate metrics
+    print("\n5. Calculating metrics...")
     metrics = processor.calculate_metrics(score_column='ABC Score')
     print(f"Metrics: {metrics}")
 

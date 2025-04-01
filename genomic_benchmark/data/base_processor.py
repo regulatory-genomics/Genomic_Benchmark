@@ -23,15 +23,21 @@ class BaseProcessor:
         Args:
             task_name: Name of the task
             dataset_name: Name of the dataset
-            cache_root: Cache root directory, defaults to .cache/genomics_benchmark in user's home directory
+            cache_root: Cache root directory. If None, will try to read from environment variable 
+                       GENOMIC_BENCHMARK_CACHE_ROOT, otherwise defaults to ~/.cache/genomics_benchmark
         """
         self.task_name = task_name
         self.dataset_name = dataset_name
         
         # Set cache root directory
         if cache_root is None:
-            cache_root = os.path.expanduser("~/.cache/genomics_benchmark")
+            # Try to read from environment variable
+            cache_root = os.getenv('GENOMIC_BENCHMARK_CACHE_ROOT')
+            if cache_root is None:
+                # Default to user's home directory
+                cache_root = os.path.expanduser("~/.cache/genomics_benchmark")
         self.cache_root = Path(cache_root)
+        print(f"Cache root: {cache_root}")
         
         # Create task and dataset specific cache directories
         self.cache_dir = self.cache_root / task_name / dataset_name
@@ -93,7 +99,7 @@ class BaseProcessor:
         else:
             raise ValueError(f"Unsupported file format: {file_path.suffix}")
         
-    def process(self, data_path: Optional[Union[str, Path]] = None, output_path: Optional[Union[str, Path]] = None) -> pd.DataFrame:
+    def process(self, data_path: Optional[Union[str, Path]] = None, output_dir: Optional[Union[str, Path]] = None) -> pd.DataFrame:
         """
         Process data with standard pipeline
         
@@ -118,8 +124,9 @@ class BaseProcessor:
         self.data = self.filter_output_columns(self.data)
         
         # Save processed data if output path is provided
-        if output_path is not None:
-            self.save_processed_data(output_path)
+        if output_dir is None:
+            output_dir = self.cache_dir
+        self.save_processed_data(output_dir)
             
         print(f"Processed data shape: {self.data.shape}")
         print(f"Processed data columns: {self.data.columns.tolist()}")
@@ -191,19 +198,25 @@ class BaseProcessor:
             'positive_negative_ratio': pos_neg_ratio
         }
         
-    def save_processed_data(self, output_path: Union[str, Path]):
+    def save_processed_data(self, output_dir: Union[str, Path], file_name: Optional[str] = None):
         """
         Save processed data
         
         Args:
-            output_path: Path to save the data
+            output_dir: Directory to save the data
         """
         if self.data is None:
             raise ValueError("No data loaded")
-            
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        self.data.to_csv(output_path, sep='\t', index=False)
+
+        if file_name is None:
+            file_name = f"{self.dataset_name}.tsv"
+        else:
+            file_name = f"{file_name}.tsv"
+
+        output_dir = Path(f"{output_dir}/{self.task_name}/{self.dataset_name}")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        self.data.to_csv(f"{output_dir}/{file_name}", sep='\t', index=False)
 
     def clear_cache(self, clear_all: bool = False):
         """
