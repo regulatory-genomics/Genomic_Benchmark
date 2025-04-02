@@ -11,13 +11,20 @@ from typing import Optional, Union
 class DataDownloader:
     """Base data downloader class"""
     
-    def __init__(self, cache_dir: Union[str, Path]):
+    def __init__(self, cache_dir: Optional[Union[str, Path]] = None):
         """
         Initialize data downloader
         
         Args:
             cache_dir: Data cache directory
         """
+        if cache_dir is None:
+            # Try to read from environment variable
+            cache_dir = os.getenv('GENOMIC_BENCHMARK_CACHE_ROOT')
+            if cache_dir is None:
+                # Default to user's home directory
+                cache_dir = os.path.expanduser("~/.cache/genomics_benchmark")
+
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
     
@@ -58,7 +65,7 @@ class DataDownloader:
         Returns:
             Downloaded file path
         """
-        print(f"Downloading from OSF: {url}")
+        print(f"\nDownloading from OSF: {url}")
         print(f"Saving to: {cache_path}")
         
         try:
@@ -100,7 +107,7 @@ class DataDownloader:
         cache_path = self._get_cache_path(url, file_name, file_format)
         
         if not force and cache_path.exists():
-            print(f"Using cached file: {cache_path}")
+            print(f"Using cached file: {cache_path}\n")
             return cache_path
         
         # Choose download method based on URL type

@@ -1,4 +1,6 @@
-Benchmark for DNA sequence-based model
+## Benchmark for DNA sequence-based model
+
+Genomic_Benchmark is a Python package for benchmarking DNA sequence-based models. The package provides dataset download and processing functionality for various genomic tasks, including enhancer prediction and eQTL prediction.
 
 ## Installation
 
@@ -6,18 +8,15 @@ Benchmark for DNA sequence-based model
 pip install git+https://github.com/regulatory-genomics/Genomic_Benchmark.git
 ```
 
-## Data Processors
+## Documentation
 
-The project provides two (will be more) main data processors for handling different types of genomic data:
+- Data Download Guide: [docs/data/download.md](https://github.com/regulatory-genomics/Genomic_Benchmark/blob/main/docs/data/download.md)
 
-### Enhancer Processor
-The `EnhancerProcessor` is designed for processing enhancer-gene interaction data. It supports multiple datasets including Gasperini, Fulco, Schraivogel and Merged datasets.
+## Supported Task Types
 
-Usage guide: [Enhancer Processor Guide](https://github.com/regulatory-genomics/Genomic_Benchmark/blob/main/docs/data/enhancer_processor_guide.md#enhancerprocessor-user-guide)
+Currently supports the following task types:
+- Enhancer Prediction
+- eQTL Prediction
 
-### eQTL Processor
-The `EQTLProcessor` is designed for processing expression quantitative trait loci (eQTL) data. It supports GTEx v10 and other eQTL datasets.
-
-Usage guide: [eQTL Processor Guide]([docs/eqtl_processor_guide.md](https://github.com/regulatory-genomics/Genomic_Benchmark/blob/main/docs/data/eqtl_processor_guide.md#eqtl-processor-user-guide))
 
 

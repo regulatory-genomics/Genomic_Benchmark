@@ -1,4 +1,17 @@
-from .data.enhancer_processor import EnhancerProcessor
-from .data.eqtl_processor import EQTLProcessor
+"""
+Genomic Benchmark package
+"""
+from .data.data import (download_data,
+                        load_table,
+                        save_table,
+                        print_label_distribution,
+                        filter_distance
+                        )
 
-__all__ = ['EnhancerProcessor', 'EQTLProcessor']
+__all__ = [
+    'download_data',
+    'load_table',
+    'save_table',
+    'print_label_distribution',
+    'filter_distance'
+]
