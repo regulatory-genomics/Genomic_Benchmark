@@ -1,6 +1,6 @@
 ## Benchmark for DNA sequence-based model
 
-Genomic_Benchmark is a Python package for benchmarking DNA sequence-based models. The package provides dataset download and processing functionality for various genomic tasks, including enhancer prediction and eQTL prediction.
+Genomic Benchmark is a Python package for benchmarking DNA sequence-based models. The package provides dataset download and processing for various genomic tasks, including enhancer prediction and eQTL prediction.
 
 ## Installation
 
