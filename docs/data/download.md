@@ -38,6 +38,7 @@ data_path_dict = gb.download_data(
     download_raw=False  # whether to download raw data
 )
 ```
+Please refer to the downloaded demo data for details:[demo_data/](https://github.com/regulatory-genomics/Genomic_Benchmark/blob/main/demo_data/)
 
 The download progress will be displayed:
 ```
