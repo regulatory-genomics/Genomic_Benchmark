@@ -40,7 +40,7 @@ def download_data(
     data_path = downloader.download(
         url=data_url,
         file_format=data_format,
-        file_name=f"{dataset_name}.{data_format}"
+        file_name=f"{dataset_name}_processed.{data_format}"
     )
     
     # Download info file

@@ -42,7 +42,7 @@ data_path_dict = gb.download_data(
 The download progress will be displayed:
 ```
 Downloading from OSF: https://osf.io/download/67ebb6e5528b3f0f7acf6926/
-Saving to: /storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache/Gasperini.tsv
+Saving to: /storage/zhangkaiLab/liuyue87/Projects/Genomic_Benchmark/cache/Gasperini_processed.tsv
 Download progress: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 360k/360k [00:01<00:00, 340kiB/s]
 
 Downloading from OSF: https://osf.io/download/67ec9059bc1d17c436829874/
@@ -53,7 +53,7 @@ Download progress: 100%|██████████████████�
 The function returns a dictionary containing file paths:
 ```python
 {
-    'data_path': '/path/to/Gasperini.tsv',
+    'data_path': '/path/to/Gasperini_processed.tsv',
     'info_path': '/path/to/Gasperini_info.md',
     'raw_path': None
 }
